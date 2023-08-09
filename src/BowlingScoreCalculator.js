@@ -1,6 +1,7 @@
 
 export default class BowlingScoreCalculator {
   TOTAL_AMOUNT_OF_PINS = 10
+  AMOUNT_OF_ROUNDS = 10
 
   score = 0
   round = 1
@@ -10,7 +11,6 @@ export default class BowlingScoreCalculator {
    * Example: "165/251/X2/71XX1/7"
    * 
    * @param {string} throws 
-   * 
    * @returns {number} score
    */
   calculate(throws) {
@@ -29,7 +29,7 @@ export default class BowlingScoreCalculator {
         this.#addSpareBonusPoints(nextThrow)
       }
       else if (this.#isStrike(currThrow)) {
-        if (this.round > 10) {
+        if (this.round > this.AMOUNT_OF_ROUNDS) {
           continue;
         }
 
@@ -67,11 +67,9 @@ export default class BowlingScoreCalculator {
   }
 
   /**
-   * 
    * @param {string} prevThrow
    * @param {string} currThrow
    * @param {string} nextThrow
-   * @returns {void} 
   */
   #handleFewKnockedPins(prevThrow, currThrow, nextThrow) {
     this.#incrementScore(currThrow)
@@ -97,28 +95,24 @@ export default class BowlingScoreCalculator {
 
 
   /**
-   * 
-   * @param {string | number} numberOfKnockedPins
-   * @returns {void} 
+   * @param {string | number} knockedPinsAmount
   */
-  #incrementScore(numberOfKnockedPins) {
-    const _numberOfKnockedPins = Number(numberOfKnockedPins)
+  #incrementScore(knockedPinsAmount) {
+    const _knockedPinsAmount = Number(knockedPinsAmount)
 
-    if (isNaN(_numberOfKnockedPins)) {
-      throw new Error('#incrementScore: numberOfKnockedPins must be a valid number')
+    if (isNaN(_knockedPinsAmount)) {
+      throw new Error('#incrementScore: knockedPinsAmount must be a valid number')
     }
 
-    this.score += _numberOfKnockedPins
+    this.score += _knockedPinsAmount
   }
 
   /**
-   * 
    * @param {string}  prevThrow 
    * @param {string}  nextThrow 
-   * @param {boolean} isLastRound 
    */
   #addSpareBonusPoints(nextThrow) {
-    if (this.round === 10) {
+    if (this.round === this.AMOUNT_OF_ROUNDS) {
       return
     }
 
@@ -131,10 +125,8 @@ export default class BowlingScoreCalculator {
   }
 
   /**
-   * 
    * @param {string}  nextThrow 
    * @param {string}  afterNextThrow 
-   * @param {boolean} isLastRound 
    */
   #addStrikeBonusPoints(nextThrow, afterNextThrow) {
       // Handling NEXT ROUND of a strike
