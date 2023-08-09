@@ -1,0 +1,16 @@
+{
+  "name": "bowling_score_calculator",
+  "version": "1.0.0",
+  "main": "BowlingScoreCalculator.js",
+  "scripts": {
+    "test": "node --test test/",
+    "test:watch": "node --watch --test test/"
+  },
+  "keywords": [],
+  "author": "Laian Braum - https://github.com/lzizn",
+  "license": "ISC",
+  "type": "module",
+  "engines": {
+    "node": "v20.5.0"
+  }
+}
